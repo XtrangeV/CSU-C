@@ -13,20 +13,14 @@ int main()
 		len++;
 	}
 	n=num;
-							//printf("%d",i);
 	for(int i=0;i<len;i++)
 	{
 		arr[i]=(n%10)+48;
 		n/=10;
 	}
 	
-	/*for(int i=0;i<len;i++)
-	{
-		putchar(arr[i]);
-	}*/
 	int i=0;
 	strcpy(tem,arr);
-	//printf("%s",tem);
 	for(int i=0;i<len;i++)
 	{
 		for(int j=0;j<i;j++)
