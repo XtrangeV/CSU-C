@@ -1,5 +1,7 @@
 #include<stdio.h>
+#include<stdlib.h>
 #define SIZE 5001
+#define HO system("pause");
 int check[SIZE] = { 0 };
 int primelist[SIZE] = { 0 };
 int pos = 0,sum=0;
@@ -22,6 +24,8 @@ int main()
 		}
 	}
 	yes();									//print(primelist,pos);
+	printf("\n");
+	HO
 	return 0;
 }
 bool yes()

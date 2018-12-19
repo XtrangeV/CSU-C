@@ -1,45 +1,113 @@
-#include<stdio.h>
+#include<cstdio>
+#include<iostream>
+#include<stack>
 #include<queue>
-#define N 50
+#define N 20
+#define HO printf("\n");system("pause");
+using namespace std;
 int main()
 {
-	char sign[N];// SIG 47
-	int flag;
-	int ans[N/2]={0};
-	std::queue<int> num;
-	std::queue<char> slist;
-	for(int i=0;i<N;i++)
+	int StringToNum(char * str);
+	int isC(char *str);
+	int isNum(char *str);
+	queue<double> numque;
+	stack<char> signstk;
+	char input[N][N];
+	int inputlen=0;
+	for (int i = 0; i < N; i++)
 	{
-		scanf("%c",sign[i]);
-	}
-	for(int i=0;i<N;i++)
-	{
-		if(sign[i] < 48)
+		cin >> input[i];
+		if (getchar() == '\n')
 		{
-			flag=i;
+			inputlen = i+1;
 			break;
 		}
 	}
-	int i=0;
-	while(!num.empty())
+	for (int i = 0; i < inputlen; i++)
 	{
-		switch(slist.front())
+		if (isC(input[i]))
 		{
-			case '*': ans[i] = num.pop()*(num.pop());
-			break;
-			case '/': ans[i] = num.pop()/num.pop();
-			break;
-			case '-': ans[i] = num.pop()-num.pop();
-			break;
-			case '+': ans[i] = num.pop()+num.pop();
-			break;
+			signstk.push(input[i][0]);
+			
 		}
-		i++;
+		else if (isNum(input[i]))
+		{
+			numque.push(StringToNum(input[i]));
+		}
 	}
-	for(int i=0;i<N/2;i++)
+	double ans=0;
+	ans = numque.front();
+	while (signstk.size())
 	{
-		ans[0]+=ans[i];
+		numque.pop();
+		if (signstk.top() == '+')
+		{
+			ans += numque.front();
+		}
+
+		else if (signstk.top() == '-')
+		{
+			ans -= numque.front();
+		}
+
+		else if (signstk.top() == '*')
+		{
+			ans *= numque.front();
+		}
+
+		else if (signstk.top() == '/')
+		{
+			ans /= numque.front();
+		}
+		signstk.pop();
 	}
-	printf("%d",ans[0]);
+	printf("%.3lf", ans);
+	HO
 	return 0;
+}
+int StringToNum(char *str)
+{
+	int len = strlen(str);
+	int num = 0,j=0;
+	for (int i = len - 1; i != -1 && str[i] != '-'; i--,j++)
+	{
+		num += ((str[i] - 48)*pow(10, j));
+	}
+	if (str[0] == '-')
+	{
+		return num*-1;
+	}
+	else
+	{
+		return num;
+	}
+}
+int isC(char *str)
+{
+	if( ( (str[0]=='+')|| (str[0] == '-')|| (str[0] == '*')|| (str[0] == '/')) && (strlen(str) == 1))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int isNum(char *str)
+{
+	if ((str[1] > 47 && str[1] < 58) || (str[0] > 47 && str[0] < 58))
+	{
+		if (str[0] == '-')
+		{	
+			return -1;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		return 0;
+	}
 }
