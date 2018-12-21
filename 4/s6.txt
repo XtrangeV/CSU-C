@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #define SIZE 5001
-#define HO printf("\n");system("pause");
+#define HO system("pause");
 int check[SIZE] = { 0 };
 int primelist[SIZE] = { 0 };
 int pos = 0,sum=0;
@@ -24,6 +24,7 @@ int main()
 		}
 	}
 	yes();									//print(primelist,pos);
+	printf("\n");
 	HO
 	return 0;
 }
@@ -31,15 +32,26 @@ bool yes()
 {
 	bool eve(int num);
 	bool cry(int num);
-	for(int i=0;i<pos;i++)	if((eve(*(primelist+i)))&&cry(sum))	printf("%d ",*(primelist+i));
+	for(int i=0;i<pos;i++)
+	{
+		if((eve(*(primelist+i)))&&cry(sum))
+		{
+			printf("%d ",*(primelist+i));
+		}
+	}
 }
 bool eve(int num)
 {
-	bool piu(int num);int len=0,ha=0;int sad=num;
+	bool piu(int num);
+	int len=0,ha=0;
+	int sad=num;
 	do
 	{
 		sum+=num%10;
-		if(piu(num%10))	ha++;
+		if(piu(num%10))
+		{
+			ha++;
+		}
 		len++;
 		num/=10;
 	}while(num);
@@ -51,5 +63,11 @@ bool piu(int num)
 }
 bool cry(int num)
 {
-	for(int i=0;i<32;i++)	if(*(primelist+i) == num)	return 1;
+	for(int i=0;i<32;i++)
+	{
+		if(*(primelist+i) == num)
+		{
+			return 1;
+		}
+	}
 }
